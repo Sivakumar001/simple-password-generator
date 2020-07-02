@@ -102,12 +102,12 @@ def main():
     val1 = IntVar()
     val2 = IntVar()
     val3 = IntVar()
-    check_b1 = Checkbutton(window, text='capital letters',
-                           var=val1, onvalue=1, offvalue=0).place(x=160, y=100)
-    check_b2 = Checkbutton(window, text='numbers', var=val2,
-                           onvalue=2, offvalue=0).place(x=160, y=125)
-    check_b3 = Checkbutton(window, text='symbols', var=val3,
-                           onvalue=3, offvalue=0).place(x=160, y=150)
+    Checkbutton(window, text='capital letters',
+                var=val1, onvalue=1, offvalue=0).place(x=160, y=100)
+    Checkbutton(window, text='numbers', var=val2,
+                onvalue=2, offvalue=0).place(x=160, y=125)
+    Checkbutton(window, text='symbols', var=val3,
+                onvalue=3, offvalue=0).place(x=160, y=150)
     Button(window, text='Done', activebackground='green',
            command=password_generator).place(x=180, y=210)
     window.mainloop()
