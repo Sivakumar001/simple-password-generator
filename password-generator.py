@@ -3,16 +3,6 @@ from tkinter import *
 from tkinter import messagebox
 
 
-capital_letters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K',
-                   'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W',
-                   'X', 'Y', 'Z']
-small_letters = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k',
-                 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w',
-                 'x', 'y', 'z']
-symbols = ['!', '”', '#', '$', '%', '&', '(', ')', '*', '+', '-', '.', '/',
-           ':', ';', '<', '=', '>', '?', '@', '[', ']', '^', '_', '`', '{',
-           '|', '~']
-
 capital_letters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H',
                    'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S',
                    'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
@@ -56,24 +46,25 @@ def password_generator():
     else:
         try:
             int(pwd_len.get())
-        except:
-            messagebox.showerror(
-                message='enter number only', title='invalid data')
-            window.destroy()
+        except Exception:
+            messagebox.showerror(message='enter number only',
+                                 title='invalid data')
+            pwd_len.delete(0, END)
+
         else:
             master_pwd = ''
             if int(pwd_len.get()) <= 20:
                 for i in range(0, int(pwd_len.get())):
-                    val = random.choice(
-                        [0, val1.get(), val2.get(), val3.get()])
+                    val = random.choice([0, val1.get(), val2.get(),
+                                         val3.get()])
                     switcher = {0: sma_rand(), 1: cap_rand(),
                                 2: numb_rand(), 3: symbl_rand()}
                     master_pwd = master_pwd + switcher.get(val)
-                    Label(window, text='the password is: ',
-                          fg='green').place(x=100, y=250)
-                    t1 = Text(window, width=20, height=1)
-                    t1.insert(INSERT, master_pwd)
-                    t1.place(x=200, y=250)
+                Label(window, text='the password is: ',
+                      fg='green').place(x=100, y=250)
+                t1 = Text(window, width=20, height=1)
+                t1.insert(INSERT, master_pwd)
+                t1.place(x=200, y=250)
             else:
                 Label(window, text='the password min size is 20!',
                       fg='red').place(x=100, y=250)
@@ -102,12 +93,12 @@ def main():
     val1 = IntVar()
     val2 = IntVar()
     val3 = IntVar()
-    check_b1 = Checkbutton(window, text='capital letters',
-                           var=val1, onvalue=1, offvalue=0).place(x=160, y=100)
-    check_b2 = Checkbutton(window, text='numbers', var=val2,
-                           onvalue=2, offvalue=0).place(x=160, y=125)
-    check_b3 = Checkbutton(window, text='symbols', var=val3,
-                           onvalue=3, offvalue=0).place(x=160, y=150)
+    Checkbutton(window, text='capital letters',
+                var=val1, onvalue=1, offvalue=0).place(x=160, y=100)
+    Checkbutton(window, text='numbers', var=val2,
+                onvalue=2, offvalue=0).place(x=160, y=125)
+    Checkbutton(window, text='symbols', var=val3,
+                onvalue=3, offvalue=0).place(x=160, y=150)
     Button(window, text='Done', activebackground='green',
            command=password_generator).place(x=180, y=210)
     window.mainloop()
