@@ -53,21 +53,17 @@ def password_generator():
 
         else:
             master_pwd = ''
-            if int(pwd_len.get()) <= 20:
-                for i in range(0, int(pwd_len.get())):
-                    val = random.choice([0, val1.get(), val2.get(),
-                                         val3.get()])
-                    switcher = {0: sma_rand(), 1: cap_rand(),
-                                2: numb_rand(), 3: symbl_rand()}
-                    master_pwd = master_pwd + switcher.get(val)
-                Label(window, text='the password is: ',
-                      fg='green').place(x=100, y=250)
-                t1 = Text(window, width=20, height=1)
-                t1.insert(INSERT, master_pwd)
-                t1.place(x=200, y=250)
-            else:
-                Label(window, text='the password min size is 20!',
-                      fg='red').place(x=100, y=250)
+            for i in range(0, int(pwd_len.get())):
+                val = random.choice([0, val1.get(), val2.get(),
+                                     val3.get()])
+                switcher = {0: sma_rand(), 1: cap_rand(),
+                            2: numb_rand(), 3: symbl_rand()}
+                master_pwd = master_pwd + switcher.get(val)
+            Label(window, text='the password is: ',
+                  fg='green').place(x=100, y=250)
+            t1 = Text(window, width=20, height=1)
+            t1.insert(INSERT, master_pwd)
+            t1.place(x=200, y=250)
 
 
 def main():
