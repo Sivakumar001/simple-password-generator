@@ -1,44 +1,31 @@
 import random
+import string
 from tkinter import *
 from tkinter import messagebox
 
 
-capital_letters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H',
-                   'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S',
-                   'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
-
-small_letters = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h',
-                 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's',
-                 't', 'u', 'v', 'w', 'x', 'y', 'z']
-
-symbols = ['!', '”', '#', '$', '%', '&', '(', ')', '*',
-           '+', '-', '.', '/', ':', ';', '<', '=', '>', '?', '@',
-           '[', ']', '^', '_', '`', '{', '|', '~']
-
-numbers = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
-
-
 def sma_rand():
-    sma_rand = random.choice(small_letters)
+    sma_rand = random.choice(string.ascii_lowercase)
     return sma_rand
 
 
 def cap_rand():
-    cap_rand = random.choice(capital_letters)
+    cap_rand = random.choice(string.ascii_uppercase)
     return cap_rand
 
 
 def symbl_rand():
-    symbol = random.choice(symbols)
+    symbol = random.choice(string.punctuation)
     return symbol
 
 
 def numb_rand():
-    numb_rand = random.choice(numbers)
+    numb_rand = random.choice(string.digits)
     return numb_rand
 
 
 def password_generator():
+    global master_pwd
     if pwd_len.get() == '':
         messagebox.showerror(
             message='enter the number of letters', title='invalid data')
@@ -53,17 +40,35 @@ def password_generator():
 
         else:
             master_pwd = ''
-            for i in range(0, int(pwd_len.get())):
-                val = random.choice([0, val1.get(), val2.get(),
-                                     val3.get()])
-                switcher = {0: sma_rand(), 1: cap_rand(),
-                            2: numb_rand(), 3: symbl_rand()}
-                master_pwd = master_pwd + switcher.get(val)
-            Label(window, text='the password is: ',
-                  fg='green').place(x=100, y=250)
-            t1 = Text(window, width=20, height=1)
-            t1.insert(INSERT, master_pwd)
-            t1.place(x=200, y=250)
+            if int(pwd_len.get()) <= 20:
+                for i in range(0, int(pwd_len.get())):
+                    val = random.choice([0, val1.get(), val2.get(),
+                                         val3.get()])
+                    switcher = {0: sma_rand(), 1: cap_rand(),
+                                2: numb_rand(), 3: symbl_rand()}
+                    master_pwd = master_pwd + switcher.get(val)
+                l1 = Label(window, text='the password is: ',
+                           fg='green')
+                l1.place(x=100, y=250)
+                t1 = Text(window, width=20, height=1)
+                t1.insert(INSERT, master_pwd)
+                t1.place(x=200, y=250)
+            else:
+                error = Label(window, text='the password min size is 20!',
+                              fg='red')
+                error.place(x=100, y=250)
+                error.after(1000, lambda: error.destroy())
+
+
+def copy():
+    global master_pwd
+    if master_pwd.isascii:
+        window.clipboard_clear()
+        window.clipboard_append(master_pwd)
+        window.update()
+        master_pwd = ''
+    else:
+        messagebox.showerror(title='no input', text='enter the input first')
 
 
 def main():
@@ -97,6 +102,8 @@ def main():
                 onvalue=3, offvalue=0).place(x=160, y=150)
     Button(window, text='Done', activebackground='green',
            command=password_generator).place(x=180, y=210)
+    Button(window, text='copy', foreground='blue',
+           command=copy).place(x=220, y=210)
     window.mainloop()
 
 
