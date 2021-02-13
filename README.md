@@ -1,4 +1,8 @@
 # simple-password-generator
 Its a simple password generator using python
 
-![output image](resources/passwordgen.jpg)
+### initial image
+![start image]('resources/passwordgen.jpg')
+
+### final output
+![output image]('resources/passoutput.jpg')
